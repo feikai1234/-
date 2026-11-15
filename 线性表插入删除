@@ -1,0 +1,40 @@
+#include<iostream>
+using namespace std;
+#define MAXSIZE 5
+struct Sqlist{
+int elem[MAXSIZE];
+int length;
+};
+bool Listinert(Sqlist &L,int i,int e);
+bool Listdelete(Sqlist &L,int i);
+int main()
+{
+    Sqlist L = {{10, 20, 30}, 3};
+Listinert(L, 2, 99);
+Listdelete(L, 3);
+Listinert(L, 4, 77);
+
+for (int j = 0; j < L.length; ++j) {
+    cout << L.elem[j] << ' ';
+}
+cout << "\nlength = " << L.length << '\n';
+    return 0;
+}
+bool Listinert(Sqlist &L,int i,int e){
+if(i<1||i>L.length+1)return false;//i不对
+if(L.length==MAXSIZE)return false;//表满了
+for(int j=L.length-1;j>=i-1;j--){//第2个位置插入下标1也右移 i-1
+L.elem[j+1]=L.elem[j];
+}
+L.elem[i-1]=e;
+L.length++;
+return true;
+}
+bool Listdelete(Sqlist &L,int i){
+if(i<1||i>L.length) return false;
+for(int j=i;j<=L.length-1;j++){//最后一个有效下标是长-1
+L.elem[j-1]=L.elem[j];
+}
+--L.length;
+return true;
+}
